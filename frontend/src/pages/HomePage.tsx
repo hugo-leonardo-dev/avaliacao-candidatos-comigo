@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
     if (userRole === 'admin') {
       setIsAdmin(true);
     } else {
-      setIsAdmin(false); // Defina como false caso o papel não seja admin
+      setIsAdmin(false); 
     }
   }, []);
   

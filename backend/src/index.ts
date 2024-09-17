@@ -5,15 +5,14 @@ import bcrypt from 'bcryptjs';
 import { validarTicket } from './validarTicket';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import { authenticateToken } from './middleware/authMiddleware'; 
+import { authenticateToken } from './middleware/authMiddleware';
 
 const app = express();
 const port = 3000;
 const prisma = new PrismaClient();
+const SECRET_KEY = 'senha';
 
 app.use(bodyParser.json());
-const SECRET_KEY = 'senha'; 
-
 app.use(cors({
   origin: 'http://localhost:3001',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -49,19 +48,19 @@ app.post('/login', async (req: Request, res: Response) => {
       return res.status(401).json({ erro: 'Credenciais inválidas' });
     }
 
-    // Incluindo role no payload do token
     const token = jwt.sign(
-      { userId: usuario.id, role: usuario.role }, 
-      SECRET_KEY, 
+      { userId: usuario.id, role: usuario.role },
+      SECRET_KEY,
       { expiresIn: '1h' }
     );
 
-    res.json({ token, role: usuario.role }); // Incluindo role na resposta
+    res.json({ success: true, token, role: usuario.role });
   } catch (error) {
     console.error('Erro ao fazer login:', error);
     res.status(400).json({ erro: 'Erro ao fazer login' });
   }
 });
+
 
 // REGISTRAR
 app.post('/registrar', async (req: Request, res: Response) => {
@@ -224,6 +223,7 @@ app.delete('/tickets/:id', authenticateToken, verificarPermissao([Role.admin]), 
   }
 });
 
+export { app };
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });

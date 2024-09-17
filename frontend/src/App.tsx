@@ -16,7 +16,7 @@ const LoginHandler: React.FC<LoginHandlerProps> = ({ onLogin }) => {
     const result = await onLogin(login, senha);
     if (result.success) {
       localStorage.setItem('token', result.token || '');
-      localStorage.setItem('userRole', result.role || ''); // Verifique se result.role está correto
+      localStorage.setItem('userRole', result.role || '');
       navigate('/tickets');console.log('Handle Login Called:', result);
 
     }

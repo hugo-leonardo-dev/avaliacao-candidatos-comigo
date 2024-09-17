@@ -2,7 +2,7 @@
 module.exports = {
   darkMode: 'media',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Certifique-se de que este padrão está correto para seu projeto
+    "./src/**/*.{js,jsx,ts,tsx}", 
   ],
   theme: {
     extend: {

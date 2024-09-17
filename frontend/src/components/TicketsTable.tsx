@@ -1,4 +1,3 @@
-// src/components/TicketsTable.tsx
 import React from 'react';
 import { Ticket } from '../types/types';
 

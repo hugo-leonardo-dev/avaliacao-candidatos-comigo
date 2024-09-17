@@ -21,11 +21,11 @@ export interface TicketFormProps {
   clientes: { id: number; nome: string }[];
 }
 export interface TicketFormData {
-  id?: number; // id é opcional, pois pode não estar presente em formulários de criação
+  id?: number; 
   tipo: string;
   motivo: string;
   descricao: string;
-  clienteId: number; // Cliente referenciado apenas pelo ID
+  clienteId: number; 
   veiculo: string;
   dataAbertura: string;
   prazo: string;

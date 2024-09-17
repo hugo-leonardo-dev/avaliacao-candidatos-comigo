@@ -247,7 +247,17 @@ const TicketForm: React.FC<TicketFormProps> = ({ onSubmit, clientes, initialData
           <p className="font-medium">Vendas</p>
         </label>
       </div>
-  
+      <select
+          id="status"
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm"
+        >
+          <option value="a_fazer">A Fazer</option>
+          <option value="em_andamento">Em Andamento</option>
+          <option value="concluido">Concluído</option>
+        </select>
       <div className="mt-4">
         <label htmlFor="veiculo" className="block text-sm font-medium text-gray-700">
           Veículo

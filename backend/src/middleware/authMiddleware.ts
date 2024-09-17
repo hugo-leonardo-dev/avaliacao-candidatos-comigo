@@ -7,12 +7,12 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.substring(7) : null;
 
-  if (token == null) return res.status(401).json({ erro: 'Token não fornecido' });
+  if (token == null) return res.status(401).json({ erro: 'Token de autenticação inválido ou ausente' });
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.status(403).json({ erro: 'Token inválido' });
+    if (err) return res.status(403).json({ erro: 'Token de autenticação inválido ou ausente' });
 
-    (req as any).user = user; // Adiciona o usuário decodificado à requisição
+    (req as any).user = user; 
     next();
   });
 };
