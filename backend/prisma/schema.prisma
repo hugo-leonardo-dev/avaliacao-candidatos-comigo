@@ -1,26 +1,25 @@
-generator client {
-  provider = "prisma-client-js"
-}
+// schema.prisma
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 model Ticket {
   id           Int         @id @default(autoincrement())
-  tipo         String
-  motivo       String
+  tipo         Tipo        
+  motivo       Motivo      
   descricao    String
-  cliente      String
+  cliente      Colaborador @relation(fields: [clienteId], references: [id])
   veiculo      String
   dataAbertura DateTime
   prazo        DateTime
-  status       String
-  colaborador  Colaborador  @relation(fields: [colaboradorId], references: [id])
-  colaboradorId Int
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  status       Status  
+  clienteId    Int     
 }
 
 model Colaborador {
@@ -28,4 +27,35 @@ model Colaborador {
   nome    String
   email   String   @unique
   tickets Ticket[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  login    String @unique
+  password String
+  role     Role
+}
+
+enum Tipo {
+  operacional
+  suporte
+  relacionamento
+  vendas
+}
+
+enum Motivo {
+  incidente
+  upgrade
+  teste
+}
+
+enum Status {
+  a_fazer
+  em_andamento
+  concluido
+}
+
+enum Role {
+  admin 
+  atendente
 }
